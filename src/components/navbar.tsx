@@ -1,13 +1,15 @@
-import  { useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { useState } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Menu, X, MessageCircle } from "lucide-react";
 
 export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const location = useLocation();
+  const navigate = useNavigate();
 
   const navLinks = [
     { name: "Home", path: "/" },
+    { name: "Services", path: "/#services" },
     { name: "About", path: "/about" },
     { name: "Blog", path: "/blog" },
     { name: "Portfolio", path: "/portfolio" },
@@ -15,6 +17,24 @@ export default function Navbar() {
 
   // Replace with your business WhatsApp link
   const whatsappUrl = "https://wa.me/2348089557692";
+
+  const handleNavClick = (
+    e: React.MouseEvent<HTMLAnchorElement>,
+    path: string
+  ) => {
+    setMobileMenuOpen(false);
+    if (path === "/#services") {
+      e.preventDefault();
+      if (location.pathname === "/") {
+        const servicesElement = document.getElementById("services");
+        if (servicesElement) {
+          servicesElement.scrollIntoView({ behavior: "smooth" });
+        }
+      } else {
+        navigate("/#services");
+      }
+    }
+  };
 
   return (
     <header className="fixed top-0 left-0 w-full z-50 bg-[#fbf9f4]/95 backdrop-blur-md border-b border-slate-200/80 px-6 lg:px-12 py-4">
@@ -40,6 +60,7 @@ export default function Navbar() {
               <Link
                 key={link.name}
                 to={link.path}
+                onClick={(e) => handleNavClick(e, link.path)}
                 className={`transition-colors hover:text-slate-900 ${
                   isActive ? "font-bold text-slate-900" : ""
                 }`}
@@ -84,7 +105,7 @@ export default function Navbar() {
               <Link
                 key={link.name}
                 to={link.path}
-                onClick={() => setMobileMenuOpen(false)}
+                onClick={(e) => handleNavClick(e, link.path)}
                 className="hover:text-slate-950 transition-colors py-1"
               >
                 {link.name}

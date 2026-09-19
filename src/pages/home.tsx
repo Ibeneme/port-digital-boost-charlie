@@ -12,6 +12,16 @@ export default function HomePage() {
   const mainRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
+    // Handle hash scroll if redirected from another page
+    if (window.location.hash === "#services") {
+      setTimeout(() => {
+        const servicesEl = document.getElementById("services");
+        if (servicesEl) {
+          servicesEl.scrollIntoView({ behavior: "smooth" });
+        }
+      }, 100);
+    }
+
     const ctx = gsap.context(() => {
       // Fade in sections on scroll
       const sections = gsap.utils.toArray<HTMLElement>(".animate-section");
@@ -121,8 +131,11 @@ export default function HomePage() {
         international
       </div>
 
-      {/* What We Do Section */}
-      <section className="animate-section max-w-6xl mx-auto px-6 py-20 text-center">
+      {/* What We Do Section / Services Section */}
+      <section
+        id="services"
+        className="animate-section max-w-6xl mx-auto px-6 py-20 text-center"
+      >
         <span className="text-xs font-semibold tracking-widest text-teal-600 uppercase block mb-3">
           WHAT WE DO
         </span>
