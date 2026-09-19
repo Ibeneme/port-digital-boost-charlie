@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import  { useState } from "react";
 import {
   TrendingUp,
   Monitor,
@@ -6,8 +6,6 @@ import {
   Smartphone,
   Check,
   ArrowRight,
-  Building2,
-  Truck,
   Dumbbell,
 } from "lucide-react";
 
