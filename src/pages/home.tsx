@@ -1,5 +1,13 @@
 import { useState, useEffect, useRef } from "react";
-import { ArrowRight, Check, ChevronDown, Clock } from "lucide-react";
+import {
+  ArrowRight,
+  Check,
+  ChevronDown,
+  Clock,
+  Phone,
+  MessageSquare,
+  X,
+} from "lucide-react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -8,6 +16,7 @@ gsap.registerPlugin(ScrollTrigger);
 export default function HomePage() {
   const [currency, setCurrency] = useState<"NGN" | "USD">("NGN");
   const [openFaq, setOpenFaq] = useState<number | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const mainRef = useRef<HTMLElement>(null);
 
@@ -51,6 +60,11 @@ export default function HomePage() {
     setOpenFaq(openFaq === index ? null : index);
   };
 
+  const handleOpenModal = (e: React.MouseEvent) => {
+    e.preventDefault();
+    setIsModalOpen(true);
+  };
+
   const faqs = [
     {
       question: "How long does it take to see results from SEO?",
@@ -82,13 +96,13 @@ export default function HomePage() {
   return (
     <main
       ref={mainRef}
-      className="w-full bg-[#fbf9f5] text-slate-900 overflow-hidden"
+      className="w-full bg-[#fbf9f5] text-slate-900 overflow-hidden relative"
     >
-      {/* Hero Section (Immediate load animation) */}
-      <section className="bg-[#111625] text-white pt-16 pb-20 px-6 md:px-12">
+      {/* Hero Section */}
+      <section className="bg-[#111625] text-white pt-16 pb-20 px-4 sm:px-6 md:px-12">
         <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
           <div className="lg:col-span-7 space-y-6">
-            <h1 className="text-3xl md:text-5xl font-bold tracking-tight leading-tight">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight leading-tight">
               Digital Growth & Custom Software - One Partner, One Mission.
             </h1>
             <p className="text-teal-400 font-medium text-lg">
@@ -100,12 +114,12 @@ export default function HomePage() {
               software that streamlines operations.
             </p>
             <div className="pt-2">
-              <a
-                href="tel:+2348089557692"
-                className="px-6 py-3.5 rounded-lg bg-amber-500 hover:bg-amber-600 text-slate-900 font-semibold text-xs md:text-sm transition-colors inline-flex items-center gap-2"
+              <button
+                onClick={handleOpenModal}
+                className="w-full sm:w-auto px-6 py-3.5 rounded-lg bg-amber-500 hover:bg-amber-600 text-slate-900 font-semibold text-xs md:text-sm transition-colors inline-flex items-center justify-center gap-2 cursor-pointer"
               >
                 Get a free SEO Audit <ArrowRight className="w-4 h-4" />
-              </a>
+              </button>
             </div>
             <p className="text-xs text-slate-400 pt-2">
               143+ businesses ranking higher on Google.
@@ -126,7 +140,7 @@ export default function HomePage() {
       </section>
 
       {/* Trust Banner */}
-      <div className="border-b border-slate-200/80 bg-white py-4 px-6 text-center text-xs font-medium text-slate-500">
+      <div className="border-b border-slate-200/80 bg-white py-4 px-4 sm:px-6 text-center text-xs font-medium text-slate-500">
         Trusted by businesses in Lagos, Abuja, Port Harcourt, Kano, Enugu and
         international
       </div>
@@ -134,7 +148,7 @@ export default function HomePage() {
       {/* What We Do Section / Services Section */}
       <section
         id="services"
-        className="animate-section max-w-6xl mx-auto px-6 py-20 text-center"
+        className="animate-section max-w-6xl mx-auto px-4 sm:px-6 py-20 text-center"
       >
         <span className="text-xs font-semibold tracking-widest text-teal-600 uppercase block mb-3">
           WHAT WE DO
@@ -149,7 +163,7 @@ export default function HomePage() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 text-left max-w-4xl mx-auto">
           {/* SEO Card */}
-          <div className="bg-[#111625] text-white rounded-2xl p-8 border border-slate-800 flex flex-col justify-between">
+          <div className="bg-[#111625] text-white rounded-2xl p-6 sm:p-8 border border-slate-800 flex flex-col justify-between">
             <div>
               <span className="text-[10px] font-bold px-2.5 py-1 bg-amber-500/20 text-amber-400 rounded uppercase tracking-wider mb-4 inline-block">
                 SEO
@@ -160,35 +174,39 @@ export default function HomePage() {
               </p>
               <ul className="space-y-2.5 text-xs text-slate-300">
                 <li className="flex items-center gap-2">
-                  <Check className="w-3.5 h-3.5 text-amber-400" /> Audit
+                  <Check className="w-3.5 h-3.5 text-amber-400 shrink-0" />{" "}
+                  Audit
                 </li>
                 <li className="flex items-center gap-2">
-                  <Check className="w-3.5 h-3.5 text-amber-400" /> Local SEO
+                  <Check className="w-3.5 h-3.5 text-amber-400 shrink-0" />{" "}
+                  Local SEO
                 </li>
                 <li className="flex items-center gap-2">
-                  <Check className="w-3.5 h-3.5 text-amber-400" /> On-page SEO
+                  <Check className="w-3.5 h-3.5 text-amber-400 shrink-0" />{" "}
+                  On-page SEO
                 </li>
                 <li className="flex items-center gap-2">
-                  <Check className="w-3.5 h-3.5 text-amber-400" /> Content
-                  strategy
+                  <Check className="w-3.5 h-3.5 text-amber-400 shrink-0" />{" "}
+                  Content strategy
                 </li>
                 <li className="flex items-center gap-2">
-                  <Check className="w-3.5 h-3.5 text-amber-400" /> Link building
+                  <Check className="w-3.5 h-3.5 text-amber-400 shrink-0" /> Link
+                  building
                 </li>
               </ul>
             </div>
             <div className="pt-8">
-              <a
-                href="tel:+2348089557692"
-                className="w-full py-2.5 rounded-lg bg-amber-500 hover:bg-amber-600 text-slate-900 font-semibold text-xs transition-colors block text-center"
+              <button
+                onClick={handleOpenModal}
+                className="w-full py-2.5 rounded-lg bg-amber-500 hover:bg-amber-600 text-slate-900 font-semibold text-xs transition-colors block text-center cursor-pointer"
               >
                 Get Free SEO Audit
-              </a>
+              </button>
             </div>
           </div>
 
           {/* Software Development Card */}
-          <div className="bg-white border border-slate-200/80 rounded-2xl p-8 flex flex-col justify-between">
+          <div className="bg-white border border-slate-200/80 rounded-2xl p-6 sm:p-8 flex flex-col justify-between">
             <div>
               <span className="text-[10px] font-bold px-2.5 py-1 bg-slate-100 text-slate-700 rounded uppercase tracking-wider mb-4 inline-block">
                 DEV
@@ -201,38 +219,41 @@ export default function HomePage() {
               </p>
               <ul className="space-y-2.5 text-xs text-slate-600">
                 <li className="flex items-center gap-2">
-                  <Check className="w-3.5 h-3.5 text-teal-600" /> Mobile Apps
+                  <Check className="w-3.5 h-3.5 text-teal-600 shrink-0" />{" "}
+                  Mobile Apps
                 </li>
                 <li className="flex items-center gap-2">
-                  <Check className="w-3.5 h-3.5 text-teal-600" /> Web Apps
+                  <Check className="w-3.5 h-3.5 text-teal-600 shrink-0" /> Web
+                  Apps
                 </li>
                 <li className="flex items-center gap-2">
-                  <Check className="w-3.5 h-3.5 text-teal-600" /> Custom
-                  Software
+                  <Check className="w-3.5 h-3.5 text-teal-600 shrink-0" />{" "}
+                  Custom Software
                 </li>
                 <li className="flex items-center gap-2">
-                  <Check className="w-3.5 h-3.5 text-teal-600" /> API
+                  <Check className="w-3.5 h-3.5 text-teal-600 shrink-0" /> API
                   Integration
                 </li>
                 <li className="flex items-center gap-2">
-                  <Check className="w-3.5 h-3.5 text-teal-600" /> IT Consulting
+                  <Check className="w-3.5 h-3.5 text-teal-600 shrink-0" /> IT
+                  Consulting
                 </li>
               </ul>
             </div>
             <div className="pt-8">
-              <a
-                href="tel:+2348089557692"
-                className="w-full py-2.5 rounded-lg bg-[#111625] hover:bg-slate-800 text-white font-semibold text-xs transition-colors block text-center"
+              <button
+                onClick={handleOpenModal}
+                className="w-full py-2.5 rounded-lg bg-[#111625] hover:bg-slate-800 text-white font-semibold text-xs transition-colors block text-center cursor-pointer"
               >
                 Book a Dev Consultation
-              </a>
+              </button>
             </div>
           </div>
         </div>
       </section>
 
       {/* Why Choose Us Section */}
-      <section className="animate-section max-w-6xl mx-auto px-6 py-16">
+      <section className="animate-section max-w-6xl mx-auto px-4 sm:px-6 py-16">
         <span className="text-xs font-semibold tracking-widest text-teal-600 uppercase block mb-3">
           WHY CHOOSE US
         </span>
@@ -246,7 +267,7 @@ export default function HomePage() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-slate-200/80 border border-slate-200/80 rounded-xl overflow-hidden">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-px bg-slate-200/80 border border-slate-200/80 rounded-xl overflow-hidden">
           <div className="bg-white p-6 space-y-3">
             <span className="text-xs font-bold text-amber-600">01</span>
             <h3 className="font-bold text-slate-900 text-sm">
@@ -353,7 +374,7 @@ export default function HomePage() {
       </section>
 
       {/* How It Works Section */}
-      <section className="animate-section bg-[#111625] text-white py-20 px-6 md:px-12">
+      <section className="animate-section bg-[#111625] text-white py-20 px-4 sm:px-6 md:px-12">
         <div className="max-w-6xl mx-auto">
           <span className="text-xs font-semibold tracking-widest text-teal-400 uppercase block mb-3">
             HOW IT WORKS
@@ -362,7 +383,7 @@ export default function HomePage() {
             From paperwork to live online - four steps
           </h2>
 
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8 relative">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 relative">
             <div className="space-y-4">
               <div className="w-10 h-10 rounded-full border border-slate-700 flex items-center justify-center text-xs font-bold text-amber-400">
                 01
@@ -411,7 +432,7 @@ export default function HomePage() {
       </section>
 
       {/* Pricing Section */}
-      <section className="animate-section max-w-6xl mx-auto px-6 py-20">
+      <section className="animate-section max-w-6xl mx-auto px-4 sm:px-6 py-20">
         <span className="text-xs font-semibold tracking-widest text-teal-600 uppercase block mb-3">
           PRICING
         </span>
@@ -423,7 +444,7 @@ export default function HomePage() {
         <div className="inline-flex p-1 bg-slate-200/80 rounded-lg text-xs font-semibold mb-10">
           <button
             onClick={() => setCurrency("NGN")}
-            className={`px-3 py-1.5 rounded-md transition-colors ${
+            className={`px-3 py-1.5 rounded-md transition-colors cursor-pointer ${
               currency === "NGN" ? "bg-white text-slate-900" : "text-slate-600"
             }`}
           >
@@ -431,7 +452,7 @@ export default function HomePage() {
           </button>
           <button
             onClick={() => setCurrency("USD")}
-            className={`px-3 py-1.5 rounded-md transition-colors ${
+            className={`px-3 py-1.5 rounded-md transition-colors cursor-pointer ${
               currency === "USD" ? "bg-white text-slate-900" : "text-slate-600"
             }`}
           >
@@ -446,7 +467,7 @@ export default function HomePage() {
             <div>
               <span className="text-xs text-slate-400">Starting from </span>
               <span className="text-2xl font-extrabold text-slate-900">
-                {currency === "NGN" ? "250,000" : "$350"}
+                {currency === "NGN" ? "250,000" : "$800"}
               </span>
               <span className="text-xs text-slate-400">/month</span>
             </div>
@@ -457,12 +478,12 @@ export default function HomePage() {
               <li className="py-1">Monthly performance tracking</li>
             </ul>
 
-            <a
-              href="tel:+2348089557692"
-              className="w-full py-2.5 rounded-lg bg-white border border-slate-300 hover:bg-slate-50 text-slate-800 font-semibold text-xs transition-colors block text-center"
+            <button
+              onClick={handleOpenModal}
+              className="w-full py-2.5 rounded-lg bg-white border border-slate-300 hover:bg-slate-50 text-slate-800 font-semibold text-xs transition-colors block text-center cursor-pointer"
             >
               Choose Starter
-            </a>
+            </button>
           </div>
 
           {/* SEO Growth */}
@@ -474,7 +495,7 @@ export default function HomePage() {
             <div>
               <span className="text-xs text-slate-400">Starting from </span>
               <span className="text-2xl font-extrabold text-slate-900">
-                {currency === "NGN" ? "400,000" : "$600"}
+                {currency === "NGN" ? "400,000" : "$1,200"}
               </span>
               <span className="text-xs text-slate-400">/month</span>
             </div>
@@ -486,12 +507,12 @@ export default function HomePage() {
               <li className="py-1">Monthly detailed SEO report</li>
             </ul>
 
-            <a
-              href="tel:+2348089557692"
-              className="w-full py-2.5 rounded-lg bg-amber-500 hover:bg-amber-600 text-slate-900 font-semibold text-xs transition-colors block text-center"
+            <button
+              onClick={handleOpenModal}
+              className="w-full py-2.5 rounded-lg bg-amber-500 hover:bg-amber-600 text-slate-900 font-semibold text-xs transition-colors block text-center cursor-pointer"
             >
               Choose Growth
-            </a>
+            </button>
           </div>
 
           {/* SEO Pro */}
@@ -500,7 +521,7 @@ export default function HomePage() {
             <div>
               <span className="text-xs text-slate-400">Starting from </span>
               <span className="text-2xl font-extrabold text-slate-900">
-                {currency === "NGN" ? "700,000" : "$1,000"}
+                {currency === "NGN" ? "700,000" : "$1,500"}
               </span>
               <span className="text-xs text-slate-400">/month</span>
             </div>
@@ -512,12 +533,12 @@ export default function HomePage() {
               <li className="py-1">Dedicated strategist</li>
             </ul>
 
-            <a
-              href="tel:+2348089557692"
-              className="w-full py-2.5 rounded-lg bg-white border border-slate-300 hover:bg-slate-50 text-slate-800 font-semibold text-xs transition-colors block text-center"
+            <button
+              onClick={handleOpenModal}
+              className="w-full py-2.5 rounded-lg bg-white border border-slate-300 hover:bg-slate-50 text-slate-800 font-semibold text-xs transition-colors block text-center cursor-pointer"
             >
               Choose Pro
-            </a>
+            </button>
           </div>
         </div>
 
@@ -529,37 +550,39 @@ export default function HomePage() {
         </p>
 
         {/* Custom Dev Callout */}
-        <div className="bg-[#f2efe9] rounded-xl p-6 mt-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
-          <div className="flex items-start gap-4">
-            <div className="p-2.5 bg-[#111625] text-amber-400 rounded-lg">
+        {/* Custom Dev Callout */}
+        <div className="bg-[#f2efe9] rounded-xl p-6 sm:p-8 mt-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-6 border border-slate-200/60">
+          <div className="flex items-start gap-4 w-full md:w-auto">
+            <div className="p-2.5 bg-[#111625] text-amber-400 rounded-lg shrink-0 mt-0.5">
               <Clock className="w-5 h-5" />
             </div>
-            <div className="space-y-1">
-              <h4 className="font-bold text-slate-900 text-sm">
+            <div className="space-y-2 flex-1">
+              <h4 className="font-bold text-slate-900 text-sm sm:text-base">
                 These prices cover SEO only
               </h4>
-              <p className="text-xs text-slate-600 leading-relaxed max-w-xl">
+              <p className="text-xs sm:text-sm text-slate-600 leading-relaxed max-w-xl">
                 The plans above are for SEO and local search work - they do not
                 include custom software or web development, which is scoped and
                 priced separately based on the project.
               </p>
-              <p className="text-xs text-slate-600 leading-relaxed">
+              <p className="text-xs sm:text-sm text-slate-600 leading-relaxed max-w-xl">
                 If you need a website, web app, or custom software built, reach
                 out directly and we'll put together a quote based on what you're
                 looking to build.
               </p>
             </div>
           </div>
-          <div className="whitespace-nowrap flex items-center gap-4 w-full md:w-auto">
-            <span className="text-xs font-semibold text-slate-800">
-              Need something custom built ?
+
+          <div className="flex flex-col items-stretch sm:items-center gap-3 w-full md:w-auto shrink-0 pt-2 md:pt-0 border-t md:border-t-0 border-slate-300/60">
+            <span className="text-xs font-semibold text-slate-800 text-center md:text-left">
+              Need something custom built?
             </span>
-            <a
-              href="tel:+2348089557692"
-              className="px-5 py-2.5 rounded-lg bg-[#111625] hover:bg-slate-800 text-white font-semibold text-xs transition-colors inline-flex items-center gap-2"
+            <button
+              onClick={handleOpenModal}
+              className="w-full sm:w-auto px-5 py-3 rounded-lg bg-[#111625] hover:bg-slate-800 text-white font-semibold text-xs transition-colors inline-flex items-center justify-center gap-2 cursor-pointer shadow-none"
             >
               Book a Dev Consultation <ArrowRight className="w-3.5 h-3.5" />
-            </a>
+            </button>
           </div>
         </div>
 
@@ -570,7 +593,7 @@ export default function HomePage() {
       </section>
 
       {/* From The Blog */}
-      <section className="animate-section max-w-6xl mx-auto px-6 py-16">
+      <section className="animate-section max-w-6xl mx-auto px-4 sm:px-6 py-16">
         <span className="text-xs font-semibold tracking-widest text-teal-600 uppercase block mb-3">
           FROM THE BLOG
         </span>
@@ -627,14 +650,14 @@ export default function HomePage() {
       </section>
 
       {/* Testimonials */}
-      <section className="animate-section bg-[#111625] text-white py-16 px-6 md:px-12">
+      <section className="animate-section bg-[#111625] text-white py-16 px-4 sm:px-6 md:px-12">
         <div className="max-w-6xl mx-auto text-center space-y-10">
           <span className="text-xs font-semibold tracking-widest text-teal-400 uppercase block">
             WHAT OUR CLIENTS ARE SAYING
           </span>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-left">
-            <div className="bg-white text-slate-900 rounded-xl p-6 space-y-4">
+            <div className="bg-white text-slate-900 rounded-xl p-6 space-y-4 border border-slate-800">
               <p className="text-xs text-slate-600 leading-relaxed font-medium">
                 "PortDigitalBoost took us from page 3 to #1 for 'hotels in Port
                 Harcourt'. Bookings increased 35%"
@@ -644,7 +667,7 @@ export default function HomePage() {
               </div>
             </div>
 
-            <div className="bg-white text-slate-900 rounded-xl p-6 space-y-4">
+            <div className="bg-white text-slate-900 rounded-xl p-6 space-y-4 border border-slate-800">
               <p className="text-xs text-slate-600 leading-relaxed font-medium">
                 "We now get 3x more calls from Google. Best investment we made"
               </p>
@@ -653,7 +676,7 @@ export default function HomePage() {
               </div>
             </div>
 
-            <div className="bg-white text-slate-900 rounded-xl p-6 space-y-4">
+            <div className="bg-white text-slate-900 rounded-xl p-6 space-y-4 border border-slate-800">
               <p className="text-xs text-slate-600 leading-relaxed font-medium">
                 "They really explained SEO in very simple terms. No jargon, just
                 results"
@@ -667,7 +690,7 @@ export default function HomePage() {
       </section>
 
       {/* FAQ Section */}
-      <section className="animate-section max-w-4xl mx-auto px-6 py-20">
+      <section className="animate-section max-w-4xl mx-auto px-4 sm:px-6 py-20">
         <h2 className="text-xl font-bold text-slate-900 text-center mb-8">
           Frequently Asked Questions
         </h2>
@@ -680,11 +703,11 @@ export default function HomePage() {
               className="bg-white border border-slate-200/80 rounded-lg p-4 cursor-pointer"
             >
               <div className="flex items-center justify-between">
-                <span className="text-xs font-semibold text-slate-800">
+                <span className="text-xs font-semibold text-slate-800 pr-4">
                   {faq.question}
                 </span>
                 <ChevronDown
-                  className={`w-4 h-4 text-slate-400 transition-transform ${
+                  className={`w-4 h-4 text-slate-400 transition-transform shrink-0 ${
                     openFaq === index ? "rotate-180" : ""
                   }`}
                 />
@@ -698,6 +721,58 @@ export default function HomePage() {
           ))}
         </div>
       </section>
+
+      {/* Call / WhatsApp Selection Modal */}
+      {isModalOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/40 backdrop-blur-[2px]">
+          <div className="bg-white rounded-2xl max-w-sm w-full p-6 border border-slate-200 text-center space-y-6 relative">
+            {/* Close Button */}
+            <button
+              onClick={() => setIsModalOpen(false)}
+              className="absolute top-4 right-4 p-1.5 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-500 transition-colors cursor-pointer"
+            >
+              <X className="w-4 h-4" />
+            </button>
+
+            <div className="space-y-2 pt-2">
+              <h3 className="text-lg font-bold text-slate-900">
+                Let's talk about your growth
+              </h3>
+              <p className="text-xs text-slate-500">
+                Choose how you'd like to connect with our team right now:
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 gap-3">
+              {/* Phone Call Button */}
+              <a
+                href="tel:+2348089557692"
+                onClick={() => setIsModalOpen(false)}
+                className="flex items-center justify-center gap-3 w-full py-3.5 px-4 rounded-xl bg-amber-500 hover:bg-amber-600 text-slate-900 font-semibold text-xs transition-all cursor-pointer"
+              >
+                <Phone className="w-4 h-4" />
+                Phone Call (+234 808 955 7692)
+              </a>
+
+              {/* WhatsApp Button */}
+              <a
+                href="https://wa.me/2348089557692?text=Hello,%20I%20would%20like%20to%20inquire%20about%20your%20SEO%20and%20Dev%20services."
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => setIsModalOpen(false)}
+                className="flex items-center justify-center gap-3 w-full py-3.5 px-4 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-xs transition-all cursor-pointer"
+              >
+                <MessageSquare className="w-4 h-4" />
+                Chat on WhatsApp
+              </a>
+            </div>
+
+            <p className="text-[10px] text-slate-400">
+              We respond quickly during business hours.
+            </p>
+          </div>
+        </div>
+      )}
     </main>
   );
 }
